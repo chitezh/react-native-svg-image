@@ -36,6 +36,10 @@ const SVGImageComponent = () => (
 );
 ```
 
+## Shots
+
+<img src="https://raw.githubusercontent.com/chitezh/react-native-svg-image/master/shots/react-native-svg.gif" width="280">
+
 ## Dev
 
 Lint & test (todo)
