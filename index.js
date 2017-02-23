@@ -14,20 +14,17 @@ export default class SVGImage extends Component {
     source: { uri: '' },
   };
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
     this.state = {
       loading: true,
     };
   }
 
-  componentWillMount() {
-    this.isComponentMounted = true;
-  }
-
   componentDidMount() {
-    this.getContent(this.props.source, content =>
-     this.isComponentMounted && this.setState({ loading: false, content }));
+    this.isComponentMounted = true;
+    this.getContent(this.props.source, this.updateContent);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,7 +32,7 @@ export default class SVGImage extends Component {
       const source = nextProps.source || {};
       const oldSource = this.props.source || {};
       if (source.uri !== oldSource.uri) {
-        this.getContent(source);
+        this.getContent(source, this.updateContent);
       }
     }
   }
@@ -54,6 +51,9 @@ export default class SVGImage extends Component {
       console.error('error', e);
     }
   }
+
+  updateContent = content =>
+    this.isComponentMounted && this.setState({ loading: false, content });
 
   render() {
     const { style } = this.props;
