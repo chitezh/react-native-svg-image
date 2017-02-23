@@ -55,19 +55,26 @@ export default class SVGImage extends Component {
   updateContent = content =>
     this.isComponentMounted && this.setState({ loading: false, content });
 
+  renderLoader = () => (
+    <View style={[this.props.style, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+      <ActivityIndicator />
+    </View>
+  );
+
   render() {
     const { style } = this.props;
 
     if (this.state.loading) {
-      return (
-        <View style={[style, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
-          <ActivityIndicator />
-        </View>
-      );
+      return this.renderLoader();
     }
 
     return (
-      <WebView source={{ html: this.state.content }} style={style} />
+      <WebView
+        source={{ html: this.state.content }}
+        style={style}
+        startInLoadingState
+        renderLoading={this.renderLoader}
+      />
     );
   }
 }
