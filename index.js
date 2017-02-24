@@ -7,11 +7,13 @@ export default class SVGImage extends Component {
     source: PropTypes.shape({
       uri: PropTypes.string,
     }).isRequired,
+    showWebviewLoader: PropTypes.bool,
   };
 
   static defaultProps = {
     style: {},
     source: { uri: '' },
+    showWebviewLoader: false,
   };
 
   constructor() {
@@ -48,7 +50,7 @@ export default class SVGImage extends Component {
       const content = await response.text();
       if (onLoaded) onLoaded(content);
     } catch (e) {
-      console.error('error', e);
+      throw new Error(`error ${e}`);
     }
   }
 
@@ -62,7 +64,7 @@ export default class SVGImage extends Component {
   );
 
   render() {
-    const { style } = this.props;
+    const { style, showWebviewLoader } = this.props;
 
     if (this.state.loading) {
       return this.renderLoader();
@@ -72,8 +74,8 @@ export default class SVGImage extends Component {
       <WebView
         source={{ html: this.state.content }}
         style={style}
-        startInLoadingState
-        renderLoading={this.renderLoader}
+        startInLoadingState={showWebviewLoader}
+        renderLoading={showWebviewLoader ? this.renderLoader : null}
       />
     );
   }
