@@ -1,61 +1,22 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import { View, WebView, ActivityIndicator } from 'react-native';
 
-export default class SVGImage extends Component {
+export default class SVGImage extends PureComponent {
   static propTypes = {
     style: PropTypes.any,
     source: PropTypes.shape({
       uri: PropTypes.string,
     }).isRequired,
     showWebviewLoader: PropTypes.bool,
+    height: PropTypes.number,
   };
 
   static defaultProps = {
     style: {},
     source: { uri: '' },
-    showWebviewLoader: false,
+    showWebviewLoader: true,
+    height: null,
   };
-
-  constructor() {
-    super();
-
-    this.state = {
-      loading: true,
-    };
-  }
-
-  componentDidMount() {
-    this.isComponentMounted = true;
-    this.getContent(this.props.source, this.updateContent);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.source) {
-      const source = nextProps.source || {};
-      const oldSource = this.props.source || {};
-      if (source.uri !== oldSource.uri) {
-        this.getContent(source, this.updateContent);
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    this.isComponentMounted = false;
-  }
-
-  getContent = async (source, onLoaded) => {
-    const { uri } = source;
-    try {
-      const response = await fetch(uri);
-      const content = await response.text();
-      if (onLoaded) onLoaded(content);
-    } catch (e) {
-      throw new Error(`error ${e}`);
-    }
-  }
-
-  updateContent = content =>
-    this.isComponentMounted && this.setState({ loading: false, content });
 
   renderLoader = () => (
     <View style={[this.props.style, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
@@ -64,15 +25,29 @@ export default class SVGImage extends Component {
   );
 
   render() {
-    const { style, showWebviewLoader } = this.props;
+    const { style, showWebviewLoader, source: { uri }, height } = this.props;
 
-    if (this.state.loading) {
-      return this.renderLoader();
-    }
+    const html = `
+      <!DOCTYPE html>\n
+      <html>
+        <head>
+          <style type="text/css">
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                margin: 0 auto;
+            }
+          </style>
+        </head>
+        <body>
+          <img src="${uri}" height="${height}" align="middle" />
+        </body>
+      </html>
+    `;
 
     return (
       <WebView
-        source={{ html: this.state.content }}
+        source={{ html }}
         style={style}
         startInLoadingState={showWebviewLoader}
         renderLoading={showWebviewLoader ? this.renderLoader : null}
