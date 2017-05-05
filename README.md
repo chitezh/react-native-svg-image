@@ -20,6 +20,7 @@ npm install react-native-svg-image --save
 |---|---|---|
 | `source` | `ImageSource` | Same kind of `source` prop that `<Image />` component has
 | `style` | `WebView` style | This extends [WebView](https://facebook.github.io/react-native/docs/webview.html) styles
+| `<any` | `WebView` props | Any other WebView prop(s)
 
 ## <a name="Usage">Usage</a>
 
