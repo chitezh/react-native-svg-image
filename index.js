@@ -1,5 +1,5 @@
 import React, { PropTypes, PureComponent } from 'react';
-import { View, WebView, ActivityIndicator } from 'react-native';
+import { View, Platform, WebView, ActivityIndicator } from 'react-native';
 
 export default class SVGImage extends PureComponent {
   static propTypes = {
@@ -14,7 +14,7 @@ export default class SVGImage extends PureComponent {
   static defaultProps = {
     style: {},
     source: { uri: '' },
-    showWebviewLoader: true,
+    showWebviewLoader: Platform.OS === 'android',
     height: null,
   };
 
