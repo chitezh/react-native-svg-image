@@ -25,7 +25,7 @@ export default class SVGImage extends PureComponent {
   );
 
   render() {
-    const { style, showWebviewLoader, source: { uri }, height } = this.props;
+    const { showWebviewLoader, source: { uri }, height, ...props } = this.props;
 
     const html = `
       <!DOCTYPE html>\n
@@ -48,9 +48,9 @@ export default class SVGImage extends PureComponent {
     return (
       <WebView
         source={{ html }}
-        style={style}
         startInLoadingState={showWebviewLoader}
         renderLoading={showWebviewLoader ? this.renderLoader : null}
+        {...props}
       />
     );
   }
