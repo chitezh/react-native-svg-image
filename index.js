@@ -25,7 +25,7 @@ export default class SVGImage extends PureComponent {
   );
 
   render() {
-    const { showWebviewLoader, source: { uri }, height, ...props } = this.props;
+    const { showWebviewLoader, source: { uri }, height, ...restOfProps } = this.props;
 
     const html = `
       <!DOCTYPE html>\n
@@ -37,6 +37,7 @@ export default class SVGImage extends PureComponent {
                 max-height: 100%;
                 margin: 0 auto;
             }
+            body { margin: 0; }
           </style>
         </head>
         <body>
@@ -47,10 +48,10 @@ export default class SVGImage extends PureComponent {
 
     return (
       <WebView
-        source={{ html }}
         startInLoadingState={showWebviewLoader}
         renderLoading={showWebviewLoader ? this.renderLoader : null}
-        {...props}
+        {...restOfProps}
+        source={{ html }}
       />
     );
   }
