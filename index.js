@@ -39,8 +39,8 @@ export default class SVGImage extends PureComponent {
               margin: 0 auto;
             }
             div {
-              width: ${width}px;
-              height: ${height}px;
+              width: ${width ? width+'px' : 'auto'};
+              height: ${height ? height+'px' : 'auto'};
             }
             body {
               margin: 0;
