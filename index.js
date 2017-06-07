@@ -1,5 +1,5 @@
 import React, { PropTypes, PureComponent } from 'react';
-import { View, Platform, WebView, ActivityIndicator } from 'react-native';
+import { View, Platform, WebView, ActivityIndicator, StyleSheet } from 'react-native';
 
 export default class SVGImage extends PureComponent {
   static propTypes = {
@@ -25,7 +25,8 @@ export default class SVGImage extends PureComponent {
   );
 
   render() {
-    const { showWebviewLoader, source: { uri }, height, ...restOfProps } = this.props;
+    const { showWebviewLoader, source: { uri }, style, ...restOfProps } = this.props;
+    const { height, width } = StyleSheet.flatten(style || []);
 
     const html = `
       <!DOCTYPE html>\n
@@ -33,15 +34,23 @@ export default class SVGImage extends PureComponent {
         <head>
           <style type="text/css">
             img {
-                max-width: 100%;
-                max-height: 100%;
-                margin: 0 auto;
+              width: 100%;
+              height: 100%;
+              margin: 0 auto;
             }
-            body { margin: 0; }
+            div {
+              width: ${width}px;
+              height: ${height}px;
+            }
+            body {
+              margin: 0;
+            }
           </style>
         </head>
         <body>
-          <img src="${uri}" height="${height}" align="middle" />
+          <div>
+            <img src="${uri}" align="middle" />
+          </div>
         </body>
       </html>
     `;
