@@ -59,6 +59,7 @@ export default class SVGImage extends PureComponent {
       <WebView
         startInLoadingState={showWebviewLoader}
         renderLoading={showWebviewLoader ? this.renderLoader : null}
+        style={style}
         {...restOfProps}
         source={{ html }}
       />
