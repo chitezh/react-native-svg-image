@@ -1,6 +1,6 @@
 # react-native-svg-image
 
-##Load SVG images from network
+## Load SVG images from network
 
 Simple SVG image renderer with progress loader
 
@@ -18,7 +18,7 @@ npm install react-native-svg-image --save
 
 | Prop | Type | Note |
 |---|---|---|
-| `source` | `ImageSource` | Same kind of `source` prop that `<Image />` component has
+| `source` | `ImageSource` | An object containing the svg image `uri`
 | `style` | `WebView` style | This extends [WebView](https://facebook.github.io/react-native/docs/webview.html) styles
 | `<any` | `WebView` props | Any other WebView prop(s)
 
