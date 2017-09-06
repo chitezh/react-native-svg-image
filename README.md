@@ -1,6 +1,6 @@
 # react-native-svg-image
 
-## Load SVG images from network
+## Load SVG images from network(It does not work with local svg files at the moment)
 
 Simple SVG image renderer with progress loader
 
