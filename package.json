@@ -84,5 +84,8 @@
       "it": true,
       "expect": false
     }
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0"
   }
 }
