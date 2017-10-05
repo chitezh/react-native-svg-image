@@ -1,6 +1,6 @@
 {
   "name": "react-native-svg-image",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Load SVG images from network",
   "main": "index.js",
   "scripts": {
@@ -84,5 +84,8 @@
       "it": true,
       "expect": false
     }
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0"
   }
 }
